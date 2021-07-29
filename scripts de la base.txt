@@ -1,0 +1,17 @@
+//obtener usuario
+db.usuarios.find({},{_id:true,nombre:true,apellido:true}).pretty()
+//obtener las categorias
+db.categorias.find({},{_id:true,nombreCategoria:true,color:true,icono:true}).pretty()
+
+//obtener todas la empresas
+db.categorias.find({_id : ObjectId("61011c217f51d622fa24e9da")},{empresas:true}).pretty()
+
+
+//insertar una nueva orden
+
+//obtener las ordenes
+db.usuarios.find({_id:ObjectId("61011bfe7f51d622fa24e98c")},{_id:true,ordenes:true}).pretty()
+
+
+//añadir una categoria
+db.categorias.insert({nombreCategoria:"prueba",descripcion:"asdasda",color:"aaa",icono:"sadasd"})

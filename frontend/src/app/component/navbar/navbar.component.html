@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-lugo">
+    <div class="container-fluid">
+            <a class="navbar-brand" href="/"><h2 id="logo">Lugo</h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <form class=" row form-inline my-2 my-lg-0 ml-auto col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6">
+                <select [(ngModel)]='usuarioSeleccionado' (change)="seleccionarUsuario()" name="users" class="form-control-navbar col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4" >
+                    <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{usuario.nombre}} {{usuario.apellido}}</option>
+                </select>
+                <button type="button" class="btn btn-secondary col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4"   data-toggle="modal" data-target="#modalUser" (click)="modalVerOrdenes(modaOrdenes)">Ver Ordenes</button>
+                <button type="button" class="btn btn-secondary col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" (click)="modalNuevaCate(modaNuevaCategoria)">Agregar Nueva Categoria</button>
+            </form>
+        </div>
+    </div>    
+</nav>
+<ng-template #modaOrdenes let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"> {{usuarios.nombre}}, Estas Son Tus Ordenes.</h4>
+        <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button> -->
+    </div>
+    <div class="modal-body">
+        <div id="zona-productos" *ngIf="usuariosFT" class="card p-3" style="border-radius: 12px;">
+            <div style="display: contents;" *ngFor="let orden of ordenes">
+                <p>
+                    </p><h3 style="color: #563D7C; font-weight: bold;">{{orden.nombreProducto}}</h3>
+                <p></p>
+                <p style="font-size: 18px;">
+                    {{orden.descripcion}}
+                </p>
+                <p class="ml-auto">
+                    <b style="font-size: 25px">Cantidad: {{orden.cantidad}}</b>
+                </p>
+                <p class="ml-auto">
+                    <b style="font-size: 25px">$ {{orden.precio}}</b>
+                </p>
+                <hr>
+
+            </div>
+        </div>
+        <div *ngIf="usuariosFT==false">
+            <h1>Seleccione un usuario</h1>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Boton Cerrrar')">Close</button>
+    </div>
+</ng-template>
+<ng-template #modaNuevaCategoria let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"> Agregar una nueva categoria</h4>
+        <!-- <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button> -->
+    </div>
+    <div class="modal-body">
+        <div id="zona-pedidos" class="modal-body">
+            <form [formGroup]="formularioAgregarCategoria">
+                <div class="form-group mr2">
+                    <label class=" form-control-label" >Digite Nombre</label>
+                    <input formControlName="nombreCategoria" name="" type="text" class="form-control" id="txt-nombre" placeholder="Digite Nombre">
+                </div>
+                <div class="form-group mr2">
+                    <label class=" form-control-label" >Digite Descripcion</label>
+                    <input formControlName="descripcion" name="" type="text" class="form-control" id="txt-descripcion" placeholder="Digite Descripcion">
+                </div>
+                <div class="form-group mr2">
+                    <label class=" form-control-label" >Digite Color</label>
+                    <select formControlName="color" name="" id="" class="form-control">
+                        <option value="#C50171">Fucsia</option>
+                        <option value="#F6004D">Rosa Oscuro</option>
+                        <option value="#FF7F00">Naraja</option>
+                        <option value="#FFAD01">Amarillo</option>
+                    </select>
+                </div>
+                <div class="form-group mr2">
+                    <label class=" form-control-label" >Digite Icono</label>
+                    <select formControlName="icono" name="" id="" class="form-control">
+                        <option value="../assets/images/test.png">Pildoras</option>
+                        <option value="../assets/images/test2.png">Home</option>
+                        <option value="../assets/images/test3.png">Whatsapp</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="guardarCategoria()">Guardar Categoria</button>
+        <button type="button" class="btn btn-outline-success" (click)="modal.close('Boton Cerrrar')">Close</button>
+    </div>
+</ng-template>
